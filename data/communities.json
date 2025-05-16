@@ -1,0 +1,169 @@
+{
+  "communities": [
+    {
+      "id": "bwit",
+      "name": "BLACK WOMEN IN TECH",
+      "category": "TECH",
+      "description": "AN OPEN SOURCE MACHINE LEARNING FRAMEWORK FOR EVERYONE",
+      "location": "ABUJA, NIGERIA",
+      "website": "WWW.BLACKWOMENINTECH.COM",
+      "featured": true,
+      "rank": 1,
+      "longDescription": "Black Women in Tech is a global network dedicated to increasing the representation and participation of Black women in the technology sector. Through mentorship, education, and networking opportunities, they empower members to excel in their careers and make significant contributions to the tech industry."
+    },
+    {
+      "id": "ltux",
+      "name": "LADIES THAT UX",
+      "category": "UX/UI",
+      "description": "CREATING A WELCOMING, TRANSPARENT COMMUNITY OF WOMEN IN UX",
+      "location": "GLOBAL, MULTIPLE CHAPTERS",
+      "website": "WWW.LADIESTHATUX.COM",
+      "featured": true,
+      "rank": 2,
+      "longDescription": "Ladies that UX is an international community of women in UX who support each other, push the UX boundaries, and promote diversity in the tech industry. Through monthly meet-ups and workshops, they provide a safe space for women to discuss their experiences, share their knowledge, and grow their skills."
+    },
+    {
+      "id": "shecodes",
+      "name": "SHE CODES",
+      "category": "CODING",
+      "description": "EMPOWERING WOMEN TO ENTER AND THRIVE IN THE WORLD OF CODING",
+      "location": "SYDNEY, AUSTRALIA",
+      "website": "WWW.SHECODES.COM",
+      "featured": true,
+      "rank": 3,
+      "longDescription": "She Codes is dedicated to providing women with the skills, knowledge, and support they need to pursue careers in technology. Through workshops, mentoring, and networking events, they aim to increase the number of women in tech and create a more diverse and inclusive industry."
+    },
+    {
+      "id": "bloodmilk",
+      "name": "BLOOD x MILK",
+      "category": "HEALTH",
+      "description": "A COMMUNITY FOCUSED ON WOMEN'S HEALTH AND WELLBEING",
+      "location": "NEW YORK, USA",
+      "website": "WWW.BLOODXMILK.COM",
+      "featured": true,
+      "rank": 4,
+      "longDescription": "Blood + Milk is a community and publication dedicated to women's health and wellbeing. They provide a platform for open discussions about topics that are often considered taboo, such as menstruation, fertility, and mental health, with the goal of empowering women through education and community support."
+    },
+    {
+      "id": "wwt",
+      "name": "WOMEN WHO TECH",
+      "category": "TECH",
+      "description": "BRINGING TOGETHER WOMEN BREAKING NEW GROUND IN TECHNOLOGY",
+      "location": "WASHINGTON DC, USA",
+      "website": "WWW.WOMENWHOTECH.COM",
+      "featured": true,
+      "rank": 5,
+      "longDescription": "Women Who Tech is on a mission to fund and showcase women-led ventures. Through startup challenges, grants, and mentorship programs, they support women entrepreneurs in the tech industry and work to close the funding gap for women-led startups."
+    },
+    {
+      "id": "technoista",
+      "name": "TECHNOISTA",
+      "category": "TECH",
+      "description": "SUPPORTING WOMEN IN TECHNOLOGY THROUGH EDUCATION AND NETWORKING",
+      "location": "BERLIN, GERMANY",
+      "website": "WWW.TECHNOISTA.COM",
+      "featured": true,
+      "rank": 6,
+      "longDescription": "Technoista is a community that supports women in technology through education, networking, and career development. They offer workshops, mentorship programs, and networking events to help women advance in their tech careers and create a more diverse and inclusive industry."
+    },
+    {
+      "id": "rightbang1",
+      "name": "RIGHTBANG",
+      "category": "HEALTH",
+      "description": "PROMOTING WOMEN'S HEALTH THROUGH TECHNOLOGY AND INNOVATION",
+      "location": "LONDON, UK",
+      "website": "WWW.RIGHTBANG.COM",
+      "featured": true,
+      "rank": 7,
+      "longDescription": "RightBang is a community focused on promoting women's health through technology and innovation. They bring together healthcare professionals, technologists, and advocates to develop solutions that address women's health issues and improve access to quality healthcare for women around the world."
+    },
+    {
+      "id": "rightbang2",
+      "name": "RIGHTBANG",
+      "category": "HEALTH",
+      "description": "PROMOTING WOMEN'S HEALTH THROUGH TECHNOLOGY AND INNOVATION",
+      "location": "LONDON, UK",
+      "website": "WWW.RIGHTBANG.COM",
+      "featured": false,
+      "rank": 8,
+      "longDescription": "RightBang is a community focused on promoting women's health through technology and innovation. They bring together healthcare professionals, technologists, and advocates to develop solutions that address women's health issues and improve access to quality healthcare for women around the world."
+    },
+    {
+      "id": "msc",
+      "name": "MUSLIM SISTERS CONNECT",
+      "category": "TECH",
+      "description": "CONNECTING MUSLIM WOMEN IN TECHNOLOGY ACROSS THE GLOBE",
+      "location": "DUBAI, UAE",
+      "website": "WWW.MUSLIMSISTERSCONNECT.COM",
+      "featured": true,
+      "rank": 9,
+      "longDescription": "Muslim Sisters Connect is a global network that brings together Muslim women in technology. Through mentorship, education, and networking opportunities, they empower members to excel in their careers while staying true to their faith and values."
+    },
+    {
+      "id": "anitab",
+      "name": "ANITAB.ORG",
+      "category": "TECH",
+      "description": "CONNECTING, INSPIRING, AND GUIDING WOMEN IN COMPUTING",
+      "location": "PALO ALTO, USA",
+      "website": "WWW.ANITAB.ORG",
+      "featured": true,
+      "rank": 10,
+      "longDescription": "AnitaB.org is a global organization that connects, inspires, and guides women in computing and organizations that view technology innovation as a strategic imperative. They provide programs and initiatives designed to increase the representation of women in technology."
+    },
+    {
+      "id": "bm2",
+      "name": "BLOOD + MILK",
+      "category": "MENTAL HEALTH",
+      "description": "SUPPORTING WOMEN'S MENTAL HEALTH AND WELLBEING",
+      "location": "NEW YORK, USA",
+      "website": "WWW.BLOODANDMILK.COM",
+      "featured": false,
+      "rank": 11,
+      "longDescription": "Blood + Milk is dedicated to supporting women's mental health and wellbeing. They provide resources, community support, and expert advice to help women navigate mental health challenges and prioritize their wellbeing."
+    },
+    {
+      "id": "csc",
+      "name": "CHRISTIAN SISTER'S CONNECT",
+      "category": "FAITH",
+      "description": "CONNECTING CHRISTIAN WOMEN IN TECHNOLOGY AND BUSINESS",
+      "location": "ATLANTA, USA",
+      "website": "WWW.CHRISTIANSISTERSCONNECT.COM",
+      "featured": false,
+      "rank": 12,
+      "longDescription": "Christian Sister's Connect brings together Christian women in technology and business. They provide a supportive community where members can grow professionally while staying connected to their faith and values."
+    },
+    {
+      "id": "msc2",
+      "name": "MUSLIM SISTER'S CONNECT",
+      "category": "ISLAM",
+      "description": "SUPPORTING MUSLIM WOMEN IN THEIR PERSONAL AND PROFESSIONAL GROWTH",
+      "location": "LONDON, UK",
+      "website": "WWW.MUSLIMSISTERSCONNECT.UK",
+      "featured": false,
+      "rank": 13,
+      "longDescription": "Muslim Sister's Connect is dedicated to supporting Muslim women in their personal and professional growth. They offer mentorship, educational resources, and networking opportunities to help members succeed while honoring their faith and cultural values."
+    },
+    {
+      "id": "wwcode",
+      "name": "WOMEN WHO CODE",
+      "category": "CODING",
+      "description": "INSPIRING WOMEN TO EXCEL IN TECHNOLOGY CAREERS",
+      "location": "SAN FRANCISCO, USA",
+      "website": "WWW.WOMENWHOCODE.COM",
+      "featured": false,
+      "rank": 14,
+      "longDescription": "Women Who Code is an international nonprofit dedicated to inspiring women to excel in technology careers. They provide an avenue into tech, empower women with skills needed for professional advancement, and create environments where networking and mentorship are valued."
+    },
+    {
+      "id": "girlsintech",
+      "name": "GIRLS IN TECH",
+      "category": "TECH",
+      "description": "EMPOWERING WOMEN IN TECHNOLOGY AND ENTREPRENEURSHIP",
+      "location": "SAN FRANCISCO, USA",
+      "website": "WWW.GIRLSINTECH.ORG",
+      "featured": false,
+      "rank": 15,
+      "longDescription": "Girls in Tech is a global nonprofit focused on the engagement, education, and empowerment of women in technology and entrepreneurship. They offer programming and resources that are designed to foster growth and success for women throughout their career in tech."
+    }
+  ]
+}
