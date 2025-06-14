@@ -11,6 +11,7 @@ MataConnect is a comprehensive platform designed to connect women from diverse b
 ## Mission
 
 Our mission is to create a platform where women from all walks of life can come together, support each other, and thrive. MataConnect aims to build a global community where women can:
+
 - Share their stories
 - Grow professionally
 - Support one another in their personal journeys
@@ -32,11 +33,11 @@ Our mission is to create a platform where women from all walks of life can come 
 ## Tech Stack
 
 - **Frontend Framework**: Next.js with TypeScript
-- **Styling**: 
+- **Styling**:
   - Tailwind CSS
   - CSS-in-JS with styled-components
   - Framer Motion for animations
-- **UI Components**: 
+- **UI Components**:
   - Custom components
   - shadcn/ui library
 - **Icons**: Lucide icon library
@@ -61,16 +62,19 @@ mataconnect-website/
 ## Getting Started
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 3. Start the development server:
+
 ```bash
 pnpm dev
 ```
@@ -84,12 +88,3 @@ We welcome contributions! Please read our contributing guidelines before submitt
 ## License
 
 © MATA CONNECT 2025. ALL RIGHTS RESERVED
-
-## Team
-
-- **Maryam Yusuf** - Founder & Software Engineer
-- **Ahmad** - Creative Designer
-
-## Connect With Us
-
-Follow us on social media to stay updated with the latest news and updates from MataConnect.
