@@ -16,11 +16,11 @@ RUN pnpm install
 # Copy the rest of the application code into the container
 COPY . .
 
-# Build the Next.js application
-RUN pnpm build
-
 # Set environment variable for API URL
 ENV NEXT_PUBLIC_API_URL=https://mataconnect-backend-bkxslbfewa-nw.a.run.app/
+
+# Build the Next.js application
+RUN pnpm build
 
 # Expose the port the app runs on
 EXPOSE 3000
