@@ -1,27 +1,35 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useRef, useEffect } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Search, ChevronDown, ArrowUpRight, Heart, Instagram, Twitter, Linkedin } from "lucide-react"
-import { motion, useInView, AnimatePresence } from "framer-motion"
-import Navbar from "@/components/navbar"
-import communitiesData from "@/data/communities.json"
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Search,
+  ChevronDown,
+  ArrowUpRight,
+  Heart,
+  Instagram,
+  Twitter,
+  Linkedin,
+} from "lucide-react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import Navbar from "@/components/navbar";
+import communitiesData from "@/data/communities.json";
 
 // Type for community data
 type Community = {
-  id: string
-  name: string
-  category: string
-  description: string
-  location: string
-  website: string
-  featured: boolean
-  rank: number
-  longDescription: string
-}
+  _id: string;
+  name: string;
+  tags: string;
+  description: string;
+  location: string;
+  website: string;
+  featured: boolean;
+  rank: number;
+  longDescription: string;
+};
 
 // Desktop Community Modal component
 const DesktopCommunityModal = ({
@@ -29,45 +37,48 @@ const DesktopCommunityModal = ({
   isOpen,
   onClose,
 }: {
-  community: Community | null
-  isOpen: boolean
-  onClose: () => void
+  community: Community | null;
+  isOpen: boolean;
+  onClose: () => void;
 }) => {
-  const [isLiked, setIsLiked] = useState(false)
-  const modalRef = useRef<HTMLDivElement>(null)
+  const [isLiked, setIsLiked] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        onClose()
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
       }
-    }
+    };
 
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose()
+        onClose();
       }
-    }
+    };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
-      document.addEventListener("keydown", handleEscKey)
-      document.body.style.overflow = "hidden"
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscKey);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.removeEventListener("keydown", handleEscKey)
-      document.body.style.overflow = "auto"
-    }
-  }, [isOpen, onClose])
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscKey);
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen, onClose]);
 
-  if (!community) return null
+  if (!community) return null;
 
   const toggleLike = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setIsLiked(!isLiked)
-  }
+    e.stopPropagation();
+    setIsLiked(!isLiked);
+  };
 
   return (
     <AnimatePresence>
@@ -91,7 +102,9 @@ const DesktopCommunityModal = ({
             <div className="w-1/2 bg-[#262626] text-white p-6 flex flex-col">
               <div className="flex-1">
                 <h2 className="text-xl font-serif mb-3">{community.name}</h2>
-                <p className="text-base text-gray-300 mb-5 leading-relaxed tracking-tight">{community.description}</p>
+                <p className="text-base text-gray-300 mb-5 leading-relaxed tracking-tight">
+                  {community.description}
+                </p>
 
                 <div className="mb-6 relative overflow-hidden rounded-lg">
                   <Image
@@ -169,14 +182,17 @@ const DesktopCommunityModal = ({
             {/* Right side - White section */}
             <div className="w-1/2 p-6 overflow-y-auto max-h-[65vh]">
               <div className="mb-6">
-                <p className="text-xs mb-4 tracking-tight">{community.longDescription}</p>
                 <p className="text-xs mb-4 tracking-tight">
-                  Located in {community.location}, this community provides resources, networking opportunities, and
-                  support for women in the field of {community.category.toLowerCase()}.
+                  {community.longDescription}
                 </p>
                 <p className="text-xs mb-4 tracking-tight">
-                  Visit their website at {community.website} to learn more about upcoming events, membership benefits,
-                  and how to get involved.
+                  Located in {community.location}, this community provides
+                  resources, networking opportunities, and support for women in
+                  the field of {community.category.toLowerCase()}.
+                </p>
+                <p className="text-xs mb-4 tracking-tight">
+                  Visit their website at {community.website} to learn more about
+                  upcoming events, membership benefits, and how to get involved.
                 </p>
               </div>
 
@@ -189,13 +205,20 @@ const DesktopCommunityModal = ({
                   isLiked
                     ? {
                         scale: [1, 1.2, 1],
-                        transition: { duration: 0.5, type: "spring", stiffness: 400, damping: 10 },
+                        transition: {
+                          duration: 0.5,
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 10,
+                        },
                       }
                     : {}
                 }
               >
                 <Heart
-                  className={`h-6 w-6 ${isLiked ? "fill-red-500 text-red-500" : "text-gray-400"}`}
+                  className={`h-6 w-6 ${
+                    isLiked ? "fill-red-500 text-red-500" : "text-gray-400"
+                  }`}
                   strokeWidth={isLiked ? 2 : 1.5}
                 />
               </motion.button>
@@ -204,8 +227,8 @@ const DesktopCommunityModal = ({
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
 // Mobile Community Modal component
 const MobileCommunityModal = ({
@@ -213,33 +236,36 @@ const MobileCommunityModal = ({
   isOpen,
   onClose,
 }: {
-  community: Community | null
-  isOpen: boolean
-  onClose: () => void
+  community: Community | null;
+  isOpen: boolean;
+  onClose: () => void;
 }) => {
   // Close modal when clicking outside
-  const modalRef = useRef<HTMLDivElement>(null)
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        onClose()
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
       }
-    }
+    };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside);
       // Prevent body scrolling when modal is open
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.body.style.overflow = "auto"
-    }
-  }, [isOpen, onClose])
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen, onClose]);
 
-  if (!community) return null
+  if (!community) return null;
 
   return (
     <AnimatePresence>
@@ -272,13 +298,20 @@ const MobileCommunityModal = ({
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
                 <span className="sr-only">Close</span>
               </button>
 
               {/* Community content - restructured layout */}
-              <h2 className="text-lg md:text-xl font-serif mb-3 md:mb-4">{community.name}</h2>
+              <h2 className="text-lg md:text-xl font-serif mb-3 md:mb-4">
+                {community.name}
+              </h2>
 
               {/* Description with more space */}
               <div className="mb-8">
@@ -287,13 +320,17 @@ const MobileCommunityModal = ({
 
               {/* Location info */}
               <div className="mb-4 text-left">
-                <h3 className="text-[10px] md:text-xs uppercase mb-1 opacity-70">Location</h3>
+                <h3 className="text-[10px] md:text-xs uppercase mb-1 opacity-70">
+                  Location
+                </h3>
                 <p className="text-xs md:text-sm">{community.location}</p>
               </div>
 
               {/* Tag and Website on same line */}
               <div className="flex justify-between items-center">
-                <span className="text-[10px] md:text-xs">#{community.category}</span>
+                <span className="text-[10px] md:text-xs">
+                  #{community.category}
+                </span>
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
@@ -308,38 +345,40 @@ const MobileCommunityModal = ({
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
 export default function ArchivePage() {
   // Get communities from the JSON file
-  const communities: Community[] = communitiesData.communities
+  const communities: Community[] = communitiesData.communities;
 
-  const [searchQuery, setSearchQuery] = useState("")
-  const [viewMode, setViewMode] = useState<"list" | "grid">("list") // Default to list view
-  const tableRef = useRef(null)
-  const isInView = useInView(tableRef, { once: true, amount: 0.1 })
-  const [placeholder, setPlaceholder] = useState("")
-  const [placeholderIndex, setPlaceholderIndex] = useState(0)
-  const [isTyping, setIsTyping] = useState(true)
-  const [currentCharIndex, setCurrentCharIndex] = useState(0)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list"); // Default to list view
+  const tableRef = useRef(null);
+  const isInView = useInView(tableRef, { once: true, amount: 0.1 });
+  const [placeholder, setPlaceholder] = useState("");
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
 
   // State for the community modal
-  const [selectedCommunity, setSelectedCommunity] = useState<Community | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedCommunity, setSelectedCommunity] = useState<Community | null>(
+    null
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openCommunityModal = (community: Community) => {
-    setSelectedCommunity(community)
-    setIsModalOpen(true)
-  }
+    setSelectedCommunity(community);
+    setIsModalOpen(true);
+  };
 
   const closeCommunityModal = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   const toggleViewMode = () => {
-    setViewMode(viewMode === "list" ? "grid" : "list")
-  }
+    setViewMode(viewMode === "list" ? "grid" : "list");
+  };
 
   // Placeholder examples
   const placeholders = [
@@ -348,43 +387,43 @@ export default function ArchivePage() {
     "Find me tech communities for Black women in Nigeria",
     "Women-led business communities in San Francisco",
     "Muslim women's support groups near me",
-  ]
+  ];
 
   // Typewriter effect
   useEffect(() => {
-    const currentPlaceholder = placeholders[placeholderIndex]
+    const currentPlaceholder = placeholders[placeholderIndex];
 
     if (isTyping) {
       if (currentCharIndex < currentPlaceholder.length) {
         const timeout = setTimeout(() => {
-          setPlaceholder(currentPlaceholder.substring(0, currentCharIndex + 1))
-          setCurrentCharIndex(currentCharIndex + 1)
-        }, 50) // Speed of typing
-        return () => clearTimeout(timeout)
+          setPlaceholder(currentPlaceholder.substring(0, currentCharIndex + 1));
+          setCurrentCharIndex(currentCharIndex + 1);
+        }, 50); // Speed of typing
+        return () => clearTimeout(timeout);
       } else {
         // Pause at the end of typing before starting to erase
         const timeout = setTimeout(() => {
-          setIsTyping(false)
-        }, 2000) // Wait time after typing completes
-        return () => clearTimeout(timeout)
+          setIsTyping(false);
+        }, 2000); // Wait time after typing completes
+        return () => clearTimeout(timeout);
       }
     } else {
       if (currentCharIndex > 0) {
         const timeout = setTimeout(() => {
-          setPlaceholder(currentPlaceholder.substring(0, currentCharIndex - 1))
-          setCurrentCharIndex(currentCharIndex - 1)
-        }, 30) // Speed of erasing (slightly faster than typing)
-        return () => clearTimeout(timeout)
+          setPlaceholder(currentPlaceholder.substring(0, currentCharIndex - 1));
+          setCurrentCharIndex(currentCharIndex - 1);
+        }, 30); // Speed of erasing (slightly faster than typing)
+        return () => clearTimeout(timeout);
       } else {
         // Move to next placeholder
         const timeout = setTimeout(() => {
-          setPlaceholderIndex((placeholderIndex + 1) % placeholders.length)
-          setIsTyping(true)
-        }, 500) // Pause before starting the next word
-        return () => clearTimeout(timeout)
+          setPlaceholderIndex((placeholderIndex + 1) % placeholders.length);
+          setIsTyping(true);
+        }, 500); // Pause before starting the next word
+        return () => clearTimeout(timeout);
       }
     }
-  }, [placeholderIndex, isTyping, currentCharIndex, placeholders])
+  }, [placeholderIndex, isTyping, currentCharIndex, placeholders]);
 
   // Animation variants
   const containerVariants = {
@@ -396,7 +435,7 @@ export default function ArchivePage() {
         delayChildren: 0.2,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -405,44 +444,44 @@ export default function ArchivePage() {
       y: 0,
       transition: { duration: 0.5, ease: "easeOut" },
     },
-  }
+  };
 
   // Filter dropdown state
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
-  const [sortOrder, setSortOrder] = useState<string>("rank")
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+  const [sortOrder, setSortOrder] = useState<string>("rank");
 
   const toggleDropdown = (dropdown: string) => {
     if (activeDropdown === dropdown) {
-      setActiveDropdown(null)
+      setActiveDropdown(null);
     } else {
-      setActiveDropdown(dropdown)
+      setActiveDropdown(dropdown);
     }
-  }
+  };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value)
-  }
+    setSearchQuery(e.target.value);
+  };
 
   const selectCategory = (category: string | null) => {
-    setSelectedCategory(category)
-    setActiveDropdown(null)
-  }
+    setSelectedCategory(category);
+    setActiveDropdown(null);
+  };
 
   const selectLocation = (location: string | null) => {
-    setSelectedLocation(location)
-    setActiveDropdown(null)
-  }
+    setSelectedLocation(location);
+    setActiveDropdown(null);
+  };
 
   const selectSortOrder = (order: string) => {
-    setSortOrder(order)
-    setActiveDropdown(null)
-  }
+    setSortOrder(order);
+    setActiveDropdown(null);
+  };
 
   // Get unique categories and locations for filters
-  const categories = Array.from(new Set(communities.map((c) => c.category)))
-  const locations = Array.from(new Set(communities.map((c) => c.location)))
+  const categories = Array.from(new Set(communities.map((c) => c.category)));
+  const locations = Array.from(new Set(communities.map((c) => c.location)));
 
   // Filter communities based on search query and filters
   const filteredCommunities = communities
@@ -450,41 +489,67 @@ export default function ArchivePage() {
       const matchesSearch =
         community.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         community.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        community.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        community.location.toLowerCase().includes(searchQuery.toLowerCase())
+        community.description
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        community.location.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesCategory = selectedCategory ? community.category === selectedCategory : true
-      const matchesLocation = selectedLocation ? community.location === selectedLocation : true
+      const matchesCategory = selectedCategory
+        ? community.category === selectedCategory
+        : true;
+      const matchesLocation = selectedLocation
+        ? community.location === selectedLocation
+        : true;
 
-      return matchesSearch && matchesCategory && matchesLocation
+      return matchesSearch && matchesCategory && matchesLocation;
     })
     .sort((a, b) => {
-      if (sortOrder === "rank") return a.rank - b.rank
-      if (sortOrder === "name") return a.name.localeCompare(b.name)
-      if (sortOrder === "newest") return b.rank - a.rank // Using rank as a proxy for "newest"
-      return 0
-    })
+      if (sortOrder === "rank") return a.rank - b.rank;
+      if (sortOrder === "name") return a.name.localeCompare(b.name);
+      if (sortOrder === "newest") return b.rank - a.rank; // Using rank as a proxy for "newest"
+      return 0;
+    });
 
   const staggerItem = {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.2 } },
-  }
+  };
 
   // Hover animation variants for list items
   const backgroundHoverVariants = {
     initial: { scaleY: 0, originY: 0 }, // Start with no height, origin at top
-    hover: { scaleY: 1, originY: 0, transition: { duration: 0.3, ease: "easeOut" } }, // Expand from top to bottom
-    exit: { scaleY: 0, originY: 1, transition: { duration: 0.3, ease: "easeIn" } } // Shrink from bottom to top
-  }
+    hover: {
+      scaleY: 1,
+      originY: 0,
+      transition: { duration: 0.3, ease: "easeOut" },
+    }, // Expand from top to bottom
+    exit: {
+      scaleY: 0,
+      originY: 1,
+      transition: { duration: 0.3, ease: "easeIn" },
+    }, // Shrink from bottom to top
+  };
 
   return (
     <main className="min-h-screen bg-white text-[#2d2d2d] overflow-x-hidden">
       {/* Community Detail Modals - separate for mobile and desktop */}
-      <MobileCommunityModal community={selectedCommunity} isOpen={isModalOpen} onClose={closeCommunityModal} />
-      <DesktopCommunityModal community={selectedCommunity} isOpen={isModalOpen} onClose={closeCommunityModal} />
+      <MobileCommunityModal
+        community={selectedCommunity}
+        isOpen={isModalOpen}
+        onClose={closeCommunityModal}
+      />
+      <DesktopCommunityModal
+        community={selectedCommunity}
+        isOpen={isModalOpen}
+        onClose={closeCommunityModal}
+      />
 
       {/* Navbar */}
-      <Navbar viewMode={viewMode} toggleViewMode={toggleViewMode} showViewToggle={true} />
+      <Navbar
+        viewMode={viewMode}
+        toggleViewMode={toggleViewMode}
+        showViewToggle={true}
+      />
 
       {/* Search and Filter Section */}
       <section className="container mx-auto px-4 py-6 md:py-12">
@@ -512,7 +577,13 @@ export default function ArchivePage() {
                 onClick={() => toggleDropdown("sort")}
                 className="flex items-center justify-between w-full px-4 py-2.5 border border-gray-200 rounded-full text-sm"
               >
-                <span>{sortOrder === "rank" ? "Featured First" : sortOrder === "name" ? "A-Z" : "Newest First"}</span>
+                <span>
+                  {sortOrder === "rank"
+                    ? "Featured First"
+                    : sortOrder === "name"
+                    ? "A-Z"
+                    : "Newest First"}
+                </span>
                 <ChevronDown className="h-4 w-4 ml-2" />
               </button>
               {activeDropdown === "sort" && (
@@ -649,7 +720,7 @@ export default function ArchivePage() {
                       <td className="py-6 text-right pr-8 pl-4 relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
                         {community.website}
                       </td>
-                      <motion.div 
+                      <motion.div
                         className="absolute inset-0 bg-[#262626]"
                         variants={backgroundHoverVariants}
                       ></motion.div>
@@ -673,10 +744,16 @@ export default function ArchivePage() {
                   whileHover="hover"
                   exit="exit"
                 >
-                  <div className="font-medium relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">{community.name}</div>
-                  <div className="text-center relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">#{community.category}</div>
-                  <div className="text-right relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">{community.website}</div>
-                  <motion.div 
+                  <div className="font-medium relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
+                    {community.name}
+                  </div>
+                  <div className="text-center relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
+                    #{community.category}
+                  </div>
+                  <div className="text-right relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
+                    {community.website}
+                  </div>
+                  <motion.div
                     className="absolute inset-0 bg-[#262626]"
                     variants={backgroundHoverVariants}
                   ></motion.div>
@@ -712,8 +789,8 @@ export default function ArchivePage() {
                       href="#"
                       className="text-xs flex items-center hover:underline"
                       onClick={(e) => {
-                        e.stopPropagation()
-                        e.preventDefault()
+                        e.stopPropagation();
+                        e.preventDefault();
                       }}
                     >
                       VISIT WEBSITE
@@ -735,7 +812,13 @@ export default function ArchivePage() {
         className="container mx-auto px-6 py-10 md:py-12 flex flex-col md:flex-row justify-center md:justify-between items-center space-y-4 md:space-y-0"
       >
         <Link href="/" className="flex items-center justify-center">
-          <Image src="/mata-connect-logo.svg" alt="Mata Connect" width={120} height={24} className="h-6 w-auto" />
+          <Image
+            src="/mata-connect-logo.svg"
+            alt="Mata Connect"
+            width={120}
+            height={24}
+            className="h-6 w-auto"
+          />
         </Link>
         <div className="text-[10px] text-[#262626] text-center md:text-right relative group">
           <motion.div
@@ -754,10 +837,12 @@ export default function ArchivePage() {
             initial={{ opacity: 0, y: 10 }}
             whileHover={{ opacity: 1, y: 0, transition: { duration: 0.3 } }}
           >
-            <span className="bg-[#f6e6d3] px-3 py-1 rounded-full text-[#2d2d2d] font-medium">www.x.com/ahruf_</span>
+            <span className="bg-[#f6e6d3] px-3 py-1 rounded-full text-[#2d2d2d] font-medium">
+              www.x.com/ahruf_
+            </span>
           </motion.a>
         </div>
       </motion.footer>
     </main>
-  )
+  );
 }
