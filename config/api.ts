@@ -28,9 +28,6 @@ export async function fetchApi<T>(
   options: RequestInit = {}
 ): Promise<T | null> {
   try {
-    console.log(getApiUrl(endpoint), "getApiUrlgetApiUrlgetApiUrlgetApiUrl");
-    console.log(endpoint, "endpointendpointendpointendpoint");
-
     const response = await fetch(getApiUrl(endpoint), {
       ...options,
       headers: {

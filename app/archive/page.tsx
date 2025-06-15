@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -17,19 +17,8 @@ import {
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/navbar";
 import communitiesData from "@/data/communities.json";
-
-// Type for community data
-type Community = {
-  _id: string;
-  name: string;
-  tags: string;
-  description: string;
-  location: string;
-  website: string;
-  featured: boolean;
-  rank: number;
-  longDescription: string;
-};
+import type { Community } from "@/types";
+import { fetchApi } from "@/config/api";
 
 // Desktop Community Modal component
 const DesktopCommunityModal = ({
@@ -349,9 +338,6 @@ const MobileCommunityModal = ({
 };
 
 export default function ArchivePage() {
-  // Get communities from the JSON file
-  const communities: Community[] = communitiesData.communities;
-
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"list" | "grid">("list"); // Default to list view
   const tableRef = useRef(null);
@@ -360,6 +346,25 @@ export default function ArchivePage() {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [communities, setCommunities] = useState<Community[]>([]);
+
+  useEffect(() => {
+    // Fetch commuties data from API
+    const fetchCommunities = async () => {
+      try {
+        const response = await fetchApi<Community[]>("communitiesSearch");
+        if (!response) {
+          console.error("No communities found", response);
+          setCommunities([]);
+          return;
+        }
+        setCommunities(response);
+      } catch (error) {
+        console.error("Error fetching communities:", error);
+      }
+    };
+    fetchCommunities();
+  }, []);
 
   // State for the community modal
   const [selectedCommunity, setSelectedCommunity] = useState<Community | null>(
@@ -434,15 +439,6 @@ export default function ArchivePage() {
         staggerChildren: 0.05,
         delayChildren: 0.2,
       },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
