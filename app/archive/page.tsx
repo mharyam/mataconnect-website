@@ -20,6 +20,7 @@ import { tags } from "@/data/tags.json";
 import { locations } from "@/data/locations.json";
 import type { Community } from "@/types";
 import { fetchApi } from "@/config/api";
+import { truncate } from "@/lib/utils";
 
 // Desktop Community Modal component
 const DesktopCommunityModal = ({
@@ -92,9 +93,6 @@ const DesktopCommunityModal = ({
             <div className="w-1/2 bg-[#262626] text-white p-6 flex flex-col">
               <div className="flex-1">
                 <h2 className="text-xl font-serif mb-3">{community.name}</h2>
-                <p className="text-base text-gray-300 mb-5 leading-relaxed tracking-tight">
-                  {community.description}
-                </p>
 
                 <div className="mb-6 relative overflow-hidden rounded-lg">
                   <Image
@@ -108,7 +106,18 @@ const DesktopCommunityModal = ({
               </div>
 
               <div className="mt-auto flex justify-between items-center">
-                <span className="text-base">#{community.tags}</span>
+                <div className="flex flex-row gap-0 isolate">
+                  {Array.isArray(community.tags) &&
+                  community.tags.length > 0 ? (
+                    community.tags.map((tag: string, idx: number) => (
+                      <span key={idx} className="text-base">
+                        #{tag}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-base">#{community.tags}</span>
+                  )}
+                </div>
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
@@ -173,12 +182,16 @@ const DesktopCommunityModal = ({
             <div className="w-1/2 p-6 overflow-y-auto max-h-[65vh]">
               <div className="mb-6">
                 <p className="text-xs mb-4 tracking-tight">
-                  {community.description}
+                  {truncate(community.description || community.name, 60)}
                 </p>
                 <p className="text-xs mb-4 tracking-tight">
                   Located in {community.location}, this community provides
                   resources, networking opportunities, and support for women in
-                  the field of {community.tags.toLowerCase()}.
+                  the field of{" "}
+                  {Array.isArray(community.tags)
+                    ? community.tags.join(", ").toLowerCase()
+                    : String(community.tags).toLowerCase()}
+                  .
                 </p>
                 <p className="text-xs mb-4 tracking-tight">
                   Visit their website at {community.website} to learn more about
@@ -305,7 +318,9 @@ const MobileCommunityModal = ({
 
               {/* Description with more space */}
               <div className="mb-8">
-                <p className="text-xs md:text-sm">{community.description}</p>
+                <p className="text-xs md:text-sm">
+                  {truncate(community.description || community.name, 60)}
+                </p>
               </div>
 
               {/* Location info */}
@@ -456,6 +471,7 @@ export default function ArchivePage() {
         {
           text: searchQuery,
           categories: selectedCategory || undefined,
+          country: selectedLocation || undefined,
         }
       );
       if (!response) {
@@ -694,7 +710,7 @@ export default function ArchivePage() {
                     <th className="py-4 text-left pl-8 pr-4">Community Name</th>
                     <th className="py-4 text-center px-4">Category</th>
                     <th className="py-4 text-center px-4">Description</th>
-                    <th className="py-4 text-center px-4">Location</th>
+                    {/* <th className="py-4 text-center px-4">Location</th> */}
                     <th className="py-4 text-right pr-8 pl-4">Website</th>
                   </tr>
                 </thead>
@@ -713,14 +729,25 @@ export default function ArchivePage() {
                         {community.name}
                       </td>
                       <td className="py-6 text-center px-4 relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
-                        #{community.tags}
+                        <div>
+                          {Array.isArray(community.tags) &&
+                          community.tags.length > 0 ? (
+                            community.tags.map((tag: string, idx: number) => (
+                              <span key={idx} className="text-base">
+                                #{tag}
+                              </span>
+                            ))
+                          ) : (
+                            <span className="text-base">#{community.tags}</span>
+                          )}
+                        </div>
                       </td>
                       <td className="py-6 text-center px-4 uppercase relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
-                        {community.description}
+                        {truncate(community.description || community.name, 60)}
                       </td>
-                      <td className="py-6 text-center px-4 relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
+                      {/* <td className="py-6 text-center px-4 relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
                         {community.location}
-                      </td>
+                      </td> */}
                       <td className="py-6 text-right pr-8 pl-4 relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
                         {community.website}
                       </td>
@@ -784,7 +811,9 @@ export default function ArchivePage() {
                   <h3 className="text-xl font-serif mb-4">{community.name}</h3>
 
                   {/* Description */}
-                  <p className="text-sm mb-8">{community.description}</p>
+                  <p className="text-sm mb-8">
+                    {truncate(community.description || community.name, 60)}
+                  </p>
 
                   {/* Footer with category and website link */}
                   <div className="flex justify-between items-center mt-auto">
