@@ -23,12 +23,32 @@ export class ApiError extends Error {
 }
 
 // Generic fetch wrapper with error handling
+/**
+ * Generic fetch wrapper with error handling and query params support
+ * @param endpoint - API endpoint key
+ * @param options - fetch options (method, headers, body, etc.)
+ * @param queryParams - optional object of query parameters
+ */
 export async function fetchApi<T>(
   endpoint: keyof typeof API_PATHS,
-  options: RequestInit = {}
+  options: RequestInit = {},
+  queryParams?: Record<string, string | number | boolean | undefined | null>
 ): Promise<T | null> {
   try {
-    const response = await fetch(getApiUrl(endpoint), {
+
+    // Build query string if queryParams provided
+    let url = getApiUrl(endpoint);
+    if (queryParams && Object.keys(queryParams).length > 0) {
+      const params = new URLSearchParams();
+      Object.entries(queryParams).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params.append(key, String(value));
+        }
+      });
+      url += `?${params.toString()}`;
+    }
+
+    const response = await fetch(url, {
       ...options,
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +70,7 @@ export async function fetchApi<T>(
     }
 
     const data = await response.json();
-    console.log(`✅ API Success:`, { endpoint: getApiUrl(endpoint) });
+    console.log(`✅ API Success:`, { endpoint: url });
     return data;
   } catch (error) {
     // Log the error with detailed information

@@ -10,7 +10,7 @@ declare global {
 
 // Add TypeScript interface for your Community type
 export interface Community {
-  _id: string;
+  id: string;
   name: string;
   tags: string;
   description: string;

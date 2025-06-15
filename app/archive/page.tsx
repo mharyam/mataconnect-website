@@ -16,7 +16,8 @@ import {
 } from "lucide-react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/navbar";
-import communitiesData from "@/data/communities.json";
+import { tags } from "@/data/tags.json";
+import { locations } from "@/data/locations.json";
 import type { Community } from "@/types";
 import { fetchApi } from "@/config/api";
 
@@ -107,7 +108,7 @@ const DesktopCommunityModal = ({
               </div>
 
               <div className="mt-auto flex justify-between items-center">
-                <span className="text-base">#{community.category}</span>
+                <span className="text-base">#{community.tags}</span>
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
@@ -172,12 +173,12 @@ const DesktopCommunityModal = ({
             <div className="w-1/2 p-6 overflow-y-auto max-h-[65vh]">
               <div className="mb-6">
                 <p className="text-xs mb-4 tracking-tight">
-                  {community.longDescription}
+                  {community.description}
                 </p>
                 <p className="text-xs mb-4 tracking-tight">
                   Located in {community.location}, this community provides
                   resources, networking opportunities, and support for women in
-                  the field of {community.category.toLowerCase()}.
+                  the field of {community.tags.toLowerCase()}.
                 </p>
                 <p className="text-xs mb-4 tracking-tight">
                   Visit their website at {community.website} to learn more about
@@ -318,7 +319,7 @@ const MobileCommunityModal = ({
               {/* Tag and Website on same line */}
               <div className="flex justify-between items-center">
                 <span className="text-[10px] md:text-xs">
-                  #{community.category}
+                  #{community.tags}
                 </span>
                 <a
                   href="#"
@@ -350,20 +351,7 @@ export default function ArchivePage() {
 
   useEffect(() => {
     // Fetch commuties data from API
-    const fetchCommunities = async () => {
-      try {
-        const response = await fetchApi<Community[]>("communitiesSearch");
-        if (!response) {
-          console.error("No communities found", response);
-          setCommunities([]);
-          return;
-        }
-        setCommunities(response);
-      } catch (error) {
-        console.error("Error fetching communities:", error);
-      }
-    };
-    fetchCommunities();
+    handleSearch();
   }, []);
 
   // State for the community modal
@@ -456,8 +444,29 @@ export default function ArchivePage() {
     }
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const setInputSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleSearch = async () => {
+    try {
+      const response = await fetchApi<Community[]>(
+        "communitiesSearch",
+        undefined,
+        {
+          text: searchQuery,
+          categories: selectedCategory || undefined,
+        }
+      );
+      if (!response) {
+        console.error("No communities found", response);
+        setCommunities([]);
+        return;
+      }
+      setCommunities(response);
+    } catch (error) {
+      console.error("Error fetching communities:", error);
+    }
   };
 
   const selectCategory = (category: string | null) => {
@@ -475,36 +484,32 @@ export default function ArchivePage() {
     setActiveDropdown(null);
   };
 
-  // Get unique categories and locations for filters
-  const categories = Array.from(new Set(communities.map((c) => c.category)));
-  const locations = Array.from(new Set(communities.map((c) => c.location)));
-
   // Filter communities based on search query and filters
-  const filteredCommunities = communities
-    .filter((community) => {
-      const matchesSearch =
-        community.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        community.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        community.description
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        community.location.toLowerCase().includes(searchQuery.toLowerCase());
+  // const filteredCommunities = communities
+  //   .filter((community) => {
+  //     const matchesSearch =
+  //       community.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //       community.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //       community.description
+  //         .toLowerCase()
+  //         .includes(searchQuery.toLowerCase()) ||
+  //       community.location.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesCategory = selectedCategory
-        ? community.category === selectedCategory
-        : true;
-      const matchesLocation = selectedLocation
-        ? community.location === selectedLocation
-        : true;
+  //     const matchesCategory = selectedCategory
+  //       ? community.category === selectedCategory
+  //       : true;
+  //     const matchesLocation = selectedLocation
+  //       ? community.location === selectedLocation
+  //       : true;
 
-      return matchesSearch && matchesCategory && matchesLocation;
-    })
-    .sort((a, b) => {
-      if (sortOrder === "rank") return a.rank - b.rank;
-      if (sortOrder === "name") return a.name.localeCompare(b.name);
-      if (sortOrder === "newest") return b.rank - a.rank; // Using rank as a proxy for "newest"
-      return 0;
-    });
+  //     return matchesSearch && matchesCategory && matchesLocation;
+  //   })
+  //   .sort((a, b) => {
+  //     if (sortOrder === "rank") return a.rank - b.rank;
+  //     if (sortOrder === "name") return a.name.localeCompare(b.name);
+  //     if (sortOrder === "newest") return b.rank - a.rank; // Using rank as a proxy for "newest"
+  //     return 0;
+  //   });
 
   const staggerItem = {
     hidden: { opacity: 0, y: 10 },
@@ -556,10 +561,13 @@ export default function ArchivePage() {
               type="text"
               placeholder={placeholder}
               value={searchQuery}
-              onChange={handleSearch}
+              onChange={setInputSearch}
               className="w-full py-3 pl-6 pr-32 text-xs md:text-sm focus:outline-none bg-white text-[#2d2d2d] placeholder:text-gray-500 placeholder:text-[8px] md:placeholder:text-[12px] placeholder:font-normal"
             />
-            <button className="absolute right-1 top-1 bottom-1 bg-[#2d2d2d] text-white rounded-full px-3 md:px-4 py-1 md:py-1.5 text-[10px] md:text-xs flex items-center">
+            <button
+              className="absolute right-1 top-1 bottom-1 bg-[#2d2d2d] text-white rounded-full px-3 md:px-4 py-1 md:py-1.5 text-[10px] md:text-xs flex items-center"
+              onClick={() => handleSearch()}
+            >
               <Search className="h-3 w-3 md:h-3.5 md:w-3.5 mr-1 md:mr-1.5" />
               Ask MataConnect
             </button>
@@ -583,7 +591,7 @@ export default function ArchivePage() {
                 <ChevronDown className="h-4 w-4 ml-2" />
               </button>
               {activeDropdown === "sort" && (
-                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                   <div className="p-2">
                     <button
                       className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded-md"
@@ -618,7 +626,7 @@ export default function ArchivePage() {
                 <ChevronDown className="h-4 w-4 ml-2" />
               </button>
               {activeDropdown === "location" && (
-                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                   <div className="p-2 max-h-60 overflow-y-auto">
                     <button
                       className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded-md"
@@ -650,7 +658,7 @@ export default function ArchivePage() {
                 <ChevronDown className="h-4 w-4 ml-2" />
               </button>
               {activeDropdown === "categories" && (
-                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-100">
                   <div className="p-2 max-h-60 overflow-y-auto">
                     <button
                       className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded-md"
@@ -658,7 +666,7 @@ export default function ArchivePage() {
                     >
                       All Categories
                     </button>
-                    {categories.map((category, index) => (
+                    {tags.map((category, index) => (
                       <button
                         key={index}
                         className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded-md"
@@ -691,7 +699,7 @@ export default function ArchivePage() {
                   </tr>
                 </thead>
                 <tbody className="text-xs">
-                  {filteredCommunities.map((community, index) => (
+                  {communities.map((community, index) => (
                     <motion.tr
                       key={community.id}
                       variants={staggerItem}
@@ -705,7 +713,7 @@ export default function ArchivePage() {
                         {community.name}
                       </td>
                       <td className="py-6 text-center px-4 relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
-                        #{community.category}
+                        #{community.tags}
                       </td>
                       <td className="py-6 text-center px-4 uppercase relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
                         {community.description}
@@ -730,7 +738,7 @@ export default function ArchivePage() {
           {/* Communities List - Mobile */}
           <section className="block md:hidden w-full py-6 mb-0">
             <div className="space-y-0">
-              {filteredCommunities.map((community) => (
+              {communities.map((community) => (
                 <motion.div
                   key={community.id}
                   variants={staggerItem}
@@ -744,7 +752,7 @@ export default function ArchivePage() {
                     {community.name}
                   </div>
                   <div className="text-center relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
-                    #{community.category}
+                    #{community.tags}
                   </div>
                   <div className="text-right relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
                     {community.website}
@@ -762,7 +770,7 @@ export default function ArchivePage() {
         // Grid View
         <section ref={tableRef} className="w-full py-8 mb-0 px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCommunities.map((community) => (
+            {communities.map((community) => (
               <div
                 key={community.id}
                 className="border border-gray-200 rounded-lg overflow-hidden cursor-pointer"
@@ -780,7 +788,7 @@ export default function ArchivePage() {
 
                   {/* Footer with category and website link */}
                   <div className="flex justify-between items-center mt-auto">
-                    <span className="text-xs">#{community.category}</span>
+                    <span className="text-xs">#{community.tags}</span>
                     <a
                       href="#"
                       className="text-xs flex items-center hover:underline"
