@@ -17,7 +17,7 @@ RUN pnpm install
 COPY . .
 
 # Set environment variable for API URL
-ENV NEXT_PUBLIC_API_URL=https://mataconnect-backend-bkxslbfewa-nw.a.run.app/
+ENV NEXT_PUBLIC_API_URL=https://mataconnect-backend-bkxslbfewa-nw.a.run.app
 
 # Build the Next.js application
 RUN pnpm build
