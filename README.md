@@ -23,23 +23,6 @@ MataConnect is a bridge connecting women with life-changing communities they nev
   - CSS-in-JS with styled-components
   - Framer Motion for animations
 
-## Project Structure
-
-```
-mataconnect-website/
-├── app/                  # Next.js app directory
-│   ├── about/           # About page
-│   ├── archive/         # Communities archive
-│   ├── submit/          # Community submission
-│   └── page.tsx         # Home page
-├── components/          # Reusable components
-├── data/               # Static data
-├── hooks/              # Custom React hooks
-├── lib/                # Utility functions
-├── public/             # Static assets
-└── styles/             # Global styles
-```
-
 ## Getting Started
 
 1. Clone the repository:
