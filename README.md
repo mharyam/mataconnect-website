@@ -6,27 +6,12 @@
 
 ## About
 
-MataConnect is a comprehensive platform designed to connect women from diverse backgrounds with communities that support their personal and professional growth. The name "Mata" means "Women" in the Hausa language, symbolizing strength, resilience, and the powerful impact women have in shaping communities and driving change.
-
-## Mission
-
-Our mission is to create a platform where women from all walks of life can come together, support each other, and thrive. MataConnect aims to build a global community where women can:
-
-- Share their stories
-- Grow professionally
-- Support one another in their personal journeys
-- Find mentorship and opportunities
-- Connect with like-minded individuals
+MataConnect is a bridge connecting women with life-changing communities they never knew existed. Born from a simple realization: the problem isn't that supportive spaces don't exist — it's discovery.
 
 ## Features
 
+- **AI Search**: Semantic communities search using MongoDB Atlas Vector Search and Vertex AI embeddings
 - **Community Discovery**: Browse and search through a curated archive of women-focused communities
-- **Detailed Community Profiles**: Access comprehensive information about each community including:
-  - Community descriptions
-  - Categories
-  - Locations
-  - Website links
-  - Social media presence
 - **Community Submission**: Submit new communities to be featured on the platform
 - **Responsive Design**: Fully responsive interface that works seamlessly on both desktop and mobile devices
 
@@ -37,10 +22,6 @@ Our mission is to create a platform where women from all walks of life can come 
   - Tailwind CSS
   - CSS-in-JS with styled-components
   - Framer Motion for animations
-- **UI Components**:
-  - Custom components
-  - shadcn/ui library
-- **Icons**: Lucide icon library
 
 ## Project Structure
 
