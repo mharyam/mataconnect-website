@@ -674,7 +674,7 @@ export default function ArchivePage() {
                 <ChevronDown className="h-4 w-4 ml-2" />
               </button>
               {activeDropdown === "categories" && (
-                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-100">
+                <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                   <div className="p-2 max-h-60 overflow-y-auto">
                     <button
                       className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded-md"
@@ -708,7 +708,7 @@ export default function ArchivePage() {
                 <thead>
                   <tr className="uppercase text-xs font-medium">
                     <th className="py-4 text-left pl-8 pr-4">Community Name</th>
-                    <th className="py-4 text-center px-4">Category</th>
+                    {/* <th className="py-4 text-center px-4">Category</th> */}
                     <th className="py-4 text-center px-4">Description</th>
                     {/* <th className="py-4 text-center px-4">Location</th> */}
                     <th className="py-4 text-right pr-8 pl-4">Website</th>
@@ -728,7 +728,7 @@ export default function ArchivePage() {
                       <td className="py-6 text-left pl-8 pr-4 font-medium relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
                         {community.name}
                       </td>
-                      <td className="py-6 text-center px-4 relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
+                      {/* <td className="py-6 text-center px-4 relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
                         <div>
                           {Array.isArray(community.tags) &&
                           community.tags.length > 0 ? (
@@ -741,7 +741,7 @@ export default function ArchivePage() {
                             <span className="text-base">#{community.tags}</span>
                           )}
                         </div>
-                      </td>
+                      </td> */}
                       <td className="py-6 text-center px-4 uppercase relative z-10 transition-colors duration-300 group-hover:text-[#F6E6D3]">
                         {truncate(community.description || community.name, 60)}
                       </td>
